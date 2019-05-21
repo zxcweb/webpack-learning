@@ -2,12 +2,13 @@
  * webpack是node语法
  */
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
-    mode:'development', //模式 production||development
+    mode:'production', //模式 production||development
     entry:'./src/index.js', //入口文件位置
     devServer:{ //开发服务起的配置
         port:3000, //端口号
@@ -34,10 +35,29 @@ module.exports = {
             cssProcessorPluginOptions: {
               preset: ['default', { discardComments: { removeAll: true } }],
             },
-        })
+        }),
+        // new webpack.ProvidePlugin({ // 在每个模块中注入$
+        //     $:'jquery'
+        // })
     ],
+    externals:{ // 不需要打包的模块
+        jquery:"$"
+    },
     module:{ //处理模块
         rules:[ // 规则 
+            {
+                test:require.resolve('jquery'),
+                use:'expose-loader?$!'
+            },
+            // {
+            //     test:/\.js$/,
+            //     use:{
+            //         loader:'eslint-loader',
+            //         options:{
+            //             enforce:'pre'// 强制改变顺序
+            //         }
+            //     },
+            // },
             {
                 test:/\.js$/,
                 use:{

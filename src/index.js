@@ -16,3 +16,4 @@ alert(al())
 let abc = new A();
 alert(abc.aa)
 alert('aaa'.includes("a"))
+console.log($)
