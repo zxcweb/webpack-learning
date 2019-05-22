@@ -1,4 +1,6 @@
 # webpack基础
+如果有一定基础，请转到
+[webpack进阶篇](https://github.com/zxcweb/webpack-learning-pro)
 ## webpack安装
 - 安装本地webpack
 - npm install webpack webpack-cli -D
