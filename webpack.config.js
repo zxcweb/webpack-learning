@@ -27,7 +27,7 @@ module.exports = {
             hash:true, //文件加上hash戳
         }),
         new MiniCssExtractPlugin({
-            filename:'main.css', // 输出css文件名 
+            filename:'css/main.css', // 输出css文件名 
         }),
         new OptimizeCssAssetsPlugin({
             assetNameRegExp: /\.css$/g, //默认为/\.css$/g
@@ -45,6 +45,24 @@ module.exports = {
     },
     module:{ //处理模块
         rules:[ // 规则 
+            {
+                test:/\.html$/,
+                // 解决html中图片路径问题
+                use:'html-withimg-loader'
+            },
+            {
+                test:/\.(png|jpg|jpeg|gif)$/i,
+                // 可以做一个限制，当图片小于多少k时，用base64来转化
+                // 否则用file-loader产生真是图片
+                use:{
+                    loader:'url-loader',
+                    options:{
+                        limit:1*1024,
+                        outputPath:'img/',
+                        publicPath:'http://www.baidu.com'
+                    }
+                }
+            },
             {
                 test:require.resolve('jquery'),
                 use:'expose-loader?$!'
@@ -103,6 +121,7 @@ module.exports = {
     },
     output:{
         filename:'bundle.[hash:4].js', //打包后的文件名 生成的文件可添加hash
-        path:path.resolve(__dirname,'dist') //必须是一个绝对路径
+        path:path.resolve(__dirname,'dist'), //必须是一个绝对路径
+        // publicPath:'http://www.baidu.com/'
     }
 }

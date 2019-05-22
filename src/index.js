@@ -1,6 +1,7 @@
 import a from './a';
 import './index.css';
 import '@babel/polyfill';
+import imgSrc from './组13拷贝2.png';
 
 const al = () =>{
     return a;
@@ -16,4 +17,6 @@ alert(al())
 let abc = new A();
 alert(abc.aa)
 alert('aaa'.includes("a"))
-console.log($)
+let img = document.createElement("img");
+img.src = imgSrc;
+document.body.appendChild(img)
